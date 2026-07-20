@@ -35,9 +35,9 @@ USER appuser
 COPY --chown=appuser . /home/appuser/app
 
 
-# Expose the port that the app runs on
+# Expose the default Streamlit port
 EXPOSE 8501
 
 
-# Command to run the application
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# Command to run the application (Render injects PORT)
+CMD ["sh", "-c", "streamlit run app.py --server.port=${PORT:-8501} --server.address=0.0.0.0"]
